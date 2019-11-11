@@ -39,10 +39,10 @@ public class GrafikActivity extends AppCompatActivity {
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
 
-    BarChart chart;
+    BarChart barChart;
     TextView emptyView, emptyView2;
     ArrayList<BarEntry> barEntries;
-    ArrayList<String> barLabels;
+    ArrayList<String> theDates;
     BarDataSet barDataSet;
     BarData barData;
 
@@ -53,52 +53,102 @@ public class GrafikActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grafik);
 
-        chart = (BarChart) findViewById(R.id.bargraph);
-        emptyView = findViewById(R.id.empty_view);
-        emptyView2= findViewById(R.id.empty_view2);
-
-        emptyView.setVisibility(View.GONE);
-        emptyView2.setVisibility(View.GONE);
-        barEntries = new ArrayList<BarEntry>();
-        barLabels = new ArrayList<String>();
-
-        dbHelper = new DbHelper(this);
-
-        SQLiteDatabase dbhit = dbHelper.getReadableDatabase();
-        cursor = dbhit.rawQuery("SELECT * FROM beratbadan;", null);
-        cursor.moveToFirst();
-
-        if (cursor.getCount() == 0) {
-            emptyView.setVisibility(View.VISIBLE);
-            emptyView2.setVisibility(View.VISIBLE);
-            chart.setVisibility(View.GONE);
-        } else {
-//            chart.getAxisLeft().setTextColor(Color.WHITE);
-            chart.getAxisRight().setTextColor(Color.WHITE);
-            chart.getXAxis().setTextColor(Color.WHITE);
-            chart.getLegend().setTextColor(Color.WHITE);
-
-            for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToPosition(i);
-                barEntries.add(new BarEntry(cursor.getInt(0), cursor.getInt(1)));
-                barLabels.add("Workout ke -" + cursor.getCount());
-
-                Log.d("DATABASE", cursor.getCount() + " banyaknya");
-            }
+//        chart = (BarChart) findViewById(R.id.bargraph);
+//        emptyView = findViewById(R.id.empty_view);
+//        emptyView2= findViewById(R.id.empty_view2);
 //
-            barDataSet = new BarDataSet(barEntries, "Berat Badan");
-
+//        emptyView.setVisibility(View.GONE);
+//        emptyView2.setVisibility(View.GONE);
+//        barEntries = new ArrayList<BarEntry>();
+//        barLabels = new ArrayList<String>();
+//
+//        dbHelper = new DbHelper(this);
+//
+//        SQLiteDatabase dbhit = dbHelper.getReadableDatabase();
+//        cursor = dbhit.rawQuery("SELECT * FROM beratbadan;", null);
+//        cursor.moveToFirst();
+//
+//        if (cursor.getCount() == 0) {
+//            emptyView.setVisibility(View.VISIBLE);
+//            emptyView2.setVisibility(View.VISIBLE);
+//            chart.setVisibility(View.GONE);
+//        } else {
+////            chart.getAxisLeft().setTextColor(Color.WHITE);
+//            chart.getAxisRight().setTextColor(Color.WHITE);
+//            chart.getXAxis().setTextColor(Color.WHITE);
+//            chart.getLegend().setTextColor(Color.WHITE);
+//
+//            for (int i = 0; i < cursor.getCount(); i++) {
+//                cursor.moveToPosition(i);
+//                barEntries.add(new BarEntry(cursor.getInt(0), cursor.getInt(1)));
+//                barLabels.add("Workout ke -" + cursor.getCount());
+//
+//                Log.d("DATABASE", cursor.getCount() + " banyaknya");
+//            }
+////
+//            barDataSet = new BarDataSet(barEntries, "Berat Badan");
+//
 //            barData = new BarData(barDataSet);
 //            chart.getXAxis().setValueFormatter(
 //                    new IndexAxisValueFormatter(barLabels));
+//
+//            barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+//
+//            chart.setData(barData);
+//
+//            chart.animateY(3000);
+//        }
 
-            barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        barChart = (BarChart) findViewById(R.id.bargraph);
+        emptyView = findViewById(R.id.empty_view);
+        emptyView2 = findViewById(R.id.empty_view2);
+        dbHelper = new DbHelper(this);
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
 
-            chart.setData(barData);
+        barEntries = new ArrayList<>();
+        theDates = new ArrayList<>();
 
-            chart.animateY(3000);
+        try {
+            String sql = "SELECT berat, tanggal FROM beratbadan";
+            Cursor dataWeightCursor = sqLiteDatabase.rawQuery(sql, null);
+            if (dataWeightCursor.getCount() == 0) {
+                barChart.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+                emptyView2.setVisibility(View.VISIBLE);
+            }
+            if (dataWeightCursor.getCount() > 0){
+                emptyView.setVisibility(View.GONE);
+                emptyView2.setVisibility(View.GONE);
+                dataWeightCursor.moveToFirst();
+                int i = 0;
+                do {
+                    barEntries.add(new BarEntry(Float.parseFloat(String.valueOf(dataWeightCursor.getInt(0))), i));
+                    theDates.add(dataWeightCursor.getString(1));
+                    i++;
+                } while (dataWeightCursor.moveToNext());
+
+                BarDataSet barDataSet = new BarDataSet(barEntries, "Berat Badan");
+
+
+                BarData theData = new BarData(theDates, barDataSet);
+                barChart.setData(theData);
+
+                barChart.setTouchEnabled(true);
+                barChart.setDragEnabled(true);
+                barChart.setScaleEnabled(true);
+
+                barChart.getAxisRight().setTextColor(Color.WHITE);
+                barChart.getAxisLeft().setTextColor(Color.WHITE);
+                barChart.getXAxis().setTextColor(Color.WHITE);
+                barChart.getLegend().setTextColor(Color.WHITE);
+                barChart.getBarData().setValueTextColor(Color.WHITE);
+                barChart.getBarData().setValueTextSize(20f); // Ukuran font value
+            }
+
+        } catch (Exception e) {
+
         }
-
+        //======================================================== jangan diubah
         myDrawer = findViewById(R.id.grafik_drawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
         myDrawer.addDrawerListener(myToggle);
@@ -107,6 +157,8 @@ public class GrafikActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nv_grafik);
         setupDrawerContent(navigationView);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
