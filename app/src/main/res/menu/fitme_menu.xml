@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_bmi"
+            android:icon="@drawable/ic_bmi"
+            android:title="BMI" />
+        <item
+            android:id="@+id/menu_workout"
+            android:icon="@drawable/ic_workout"
+            android:title="Gerakan Latihan" />
+        <item
+            android:id="@+id/menu_report"
+            android:icon="@drawable/ic_dailyworkout"
+            android:title="Laporan Latihan" />
+        <item
+            android:id="@+id/menu_grafik"
+            android:icon="@drawable/ic_grafik"
+            android:title="Grafik" />
+        <item
+            android:id="@+id/menu_quiz"
+            android:icon="@drawable/ic_funquiz"
+            android:title="Kuis" />
+        <item
+            android:id="@+id/menu_video"
+            android:icon="@drawable/article"
+            android:title="Artikel" />
+        <item
+            android:id="@+id/menu_about"
+            android:icon="@drawable/ic_about"
+            android:title="Tentang Kami" />
+    </group>
+
+</menu>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/quiz_drawer"
+    android:background="@color/background"
+    tools:context=".QuizActivity">
+
+
+    <LinearLayout
+        android:id="@+id/activity_quiz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question to answer"
+            android:textSize="20sp"
+            android:padding="4dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/question"/>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:padding="8dp"
+            android:onClick="onClick"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/choice1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="B"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:padding="8dp"
+            android:onClick="onClick"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/choice2"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:padding="8dp"
+            android:onClick="onClick"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/choice3"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="D"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            android:padding="8dp"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/choice4"
+            android:onClick="onClick" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#d4390a"
+            android:layout_marginBottom="2dp">
+
+            <TextView
+                android:id="@+id/score_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffff"
+                android:textStyle="bold"
+                android:text="Skor" />
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/score_text"
+                android:layout_centerHorizontal="true"
+                android:textColor="#fff"
+                android:textSize="15dp"
+                android:text="0/0" />
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="#fff"
+        app:itemIconTint="#fff"
+        app:menu="@menu/fitme_menu"
+        android:id="@+id/nv_quiz"
+        android:layout_gravity="start"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

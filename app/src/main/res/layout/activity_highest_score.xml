@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_highest_score"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:background="@color/background"
+    tools:context="com.sample.multiplechoicequiz.HighestScoreActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="107dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/textScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            android:text="Skor Anda :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/textHighScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#d4390a"
+            android:padding="16dp"
+            android:text="Skor Tertinggi :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:text="Coba Lagi" />
+    </LinearLayout>
+</RelativeLayout>
